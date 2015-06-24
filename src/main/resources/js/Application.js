@@ -7,6 +7,7 @@ import WebAPI from './WebAPI';
 function getState() {
     return {
         henvendelser: HenvendelseStore.getAll(),
+        valgtHenvendelse: HenvendelseStore.getValgtHenvendelse(),
         sistEndret: HenvendelseStore.getSisteNEndret(10)
     }
 }
@@ -44,7 +45,7 @@ class Application extends React.Component {
     }
 
     render() {
-        return <HenvendelseListe liste={this.state.sistEndret} />
+        return <HenvendelseListe liste={this.state.sistEndret} valgt={this.state.valgtHenvendelse}/>
 
     }
 }

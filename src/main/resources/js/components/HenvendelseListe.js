@@ -1,4 +1,5 @@
 import React from 'react';
+import Actions from './../actions/Actions.js';
 
 class HenvendelseListe extends React.Component {
     constructor(props) {
@@ -8,8 +9,19 @@ class HenvendelseListe extends React.Component {
     render() {
         var listeelementer = this.props.liste.map((henvendelse) => {
             let id = henvendelse.behandlingsId;
+            let erValgt = this.props.valgt === id;
 
-            return <li key={id}>Henvendelse: {id}</li>
+            return (
+                <div key={id}>
+                    <input type="radio"
+                        value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
+                        onChange={Actions.velgHenvendelse.bind(this, id)}
+                        checked={erValgt}
+                    />
+                    <label htmlFor={'henvendelse-' + id}>Henvendelse {id} </label>
+                </div>
+            );
+
         });
         return (
             <div className="sist-endret">

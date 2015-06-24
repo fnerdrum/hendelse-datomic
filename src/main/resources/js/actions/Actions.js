@@ -25,6 +25,12 @@ let Actions = {
                     });
                 }
             })
+    },
+    velgHenvendelse: (behandlingsId) => {
+        AppDispatcher.dispatch({
+            actionType: Constants.VALGT_HENVENDELSE,
+            data: behandlingsId
+        });
     }
 };
 
