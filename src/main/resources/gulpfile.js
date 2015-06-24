@@ -5,8 +5,13 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var notify = require('gulp-notify');
 
+var less = require('gulp-less');
+var sourcemaps = require('gulp-sourcemaps');
+var watch = require('gulp-watch');
+
 
 var JSsourcedir = './js';
+var styleSourcedir = './style';
 var distdir = './public';
 
 function buildJS(isDev) {
@@ -36,5 +41,27 @@ function buildJS(isDev) {
     return createbundle();
 }
 
-gulp.task('default', buildJS.bind(this, false));
-gulp.task('dev', buildJS.bind(this, true));
+function buildLess() {
+    console.log('Building less');
+    try {
+        return gulp.src(styleSourcedir + '/index.less')
+            .pipe(sourcemaps.init())
+            .pipe(less())
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(distdir));
+    } finally {
+        console.log('Less build complete');
+    }
+}
+
+gulp.task('default', function () {
+    buildJS(false);
+    buildLess();
+});
+
+gulp.task('less', buildLess);
+gulp.task('dev', function () {
+    buildJS(true);
+    buildLess();
+    gulp.watch(styleSourcedir + '/**/*.less', ['less']);
+});

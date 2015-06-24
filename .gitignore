@@ -25,4 +25,4 @@ dependency-reduced-pom.xml
 #npm
 node_modules/
 *.dist.js
-*.dist.css
+*.css
