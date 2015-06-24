@@ -10,10 +10,22 @@ class HenvendelseListe extends React.Component {
     }
 
     render() {
+        let lastColor = -1;
         var listeelementer = this.props.liste.map((henvendelse) => {
             let id = henvendelse.behandlingsId;
             let erValgt = this.props.valgt === id;
-            let colorClass = 'auto-color-' + (Utils.hash(id) % 10 + 1);
+
+            let colorCode = Utils.hash(id) % 10 +1;
+            if (colorCode === lastColor) {
+                colorCode++;
+            }
+            lastColor = colorCode;
+
+            let colorClass = 'auto-color-' + colorCode;
+
+            if (erValgt) {
+                colorClass += ' checked';
+            }
 
             return (
                 <div key={id} className={colorClass}>
@@ -22,7 +34,7 @@ class HenvendelseListe extends React.Component {
                         onChange={Actions.velgHenvendelse.bind(this, id)}
                         checked={erValgt}
                     />
-                    <label htmlFor={'henvendelse-' + id}>{'Henvendelse ' + id}</label>
+                    <label htmlFor={'henvendelse-' + id}>{'ID: ' + id}</label>
                 </div>
             );
 

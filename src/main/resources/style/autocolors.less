@@ -1,5 +1,5 @@
 @nof-colors: 10;
-@basecolor: red;
+@basecolor: desaturate(red, 40%);
 
 .mixin-loop (@index, @total) when (@index > 0) {
   .auto-color-@{index} {
@@ -7,6 +7,16 @@
 
     background-color: @bgcolor;
     color: contrast(@bgcolor);
+
+    &:hover, &.hover {
+      background-color: saturate(@bgcolor, 20%);
+    }
+
+    &:checked, &.checked {
+      @activecolor: saturate(@bgcolor, 100%);
+      background-color: @activecolor;
+      color: contrast(@activecolor);
+    }
   }
 
   .mixin-loop(@index - 1, @total);
