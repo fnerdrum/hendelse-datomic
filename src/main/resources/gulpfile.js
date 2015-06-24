@@ -22,28 +22,18 @@ function buildJS(isDev) {
     function createbundle() {
         var start = new Date();
         console.log('creating bundle...');
-        try {
-            return bundler
-                .bundle()
-                .on('error', notifyError)
-                .pipe(source('index.dist.js'))
-                .pipe(gulp.dest(distdir));
-        } finally {
-            console.log('bundle created in ' + (new Date() - start) + 'ms');
-        }
+        return bundler
+            .bundle()
+            .on('error', notify.onError({message: '<%= error.message %>'}))
+            .pipe(source('index.dist.js'))
+            .pipe(gulp.dest(distdir))
+            .pipe(notify('Build completed in ' + (new Date() - start) + 'ms'));
 
     }
 
     bundler.on('update', createbundle);
 
     return createbundle();
-}
-
-function notifyError() {
-    notify.onError({
-        title: 'Compile error',
-        message: '<%= error.message %>'
-    })
 }
 
 gulp.task('default', buildJS.bind(this, false));
