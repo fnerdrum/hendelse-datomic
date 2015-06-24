@@ -1,7 +1,10 @@
 package no.bekk.hendelse.domain;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Comparator.comparing;
 
 public class Henvendelse {
     public final String behandlingsId;
@@ -10,4 +13,11 @@ public class Henvendelse {
     public Henvendelse(String behandlingsId) {
         this.behandlingsId = behandlingsId;
     }
+
+    public Instant getLastUpdate() {
+        return hendelseList.stream()
+                .max(comparing(hendelse -> hendelse.time))
+                .get().time;
+    }
+
 }
