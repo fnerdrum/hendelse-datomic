@@ -45,7 +45,13 @@ class Application extends React.Component {
     }
 
     render() {
-        return <HenvendelseListe liste={this.state.sistEndret} valgt={this.state.valgtHenvendelse}/>
+        return (
+            <div className="application">
+                <h1 className="hoved-header">Henvendelse-Datomic</h1>
+                <HenvendelseListe liste={this.state.sistEndret} valgt={this.state.valgtHenvendelse}/>
+                <div className="henvendelse-visning visnings-boks"></div>
+            </div>
+        );
 
     }
 }

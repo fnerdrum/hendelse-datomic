@@ -1,0 +1,15 @@
+@nof-colors: 10;
+@basecolor: red;
+
+.mixin-loop (@index, @total) when (@index > 0) {
+  .auto-color-@{index} {
+    @bgcolor: spin(@basecolor, (360 / @nof-colors) * @index);
+
+    background-color: @bgcolor;
+    color: contrast(@bgcolor);
+  }
+
+  .mixin-loop(@index - 1, @total);
+}
+
+.mixin-loop(@nof-colors, @nof-colors);
