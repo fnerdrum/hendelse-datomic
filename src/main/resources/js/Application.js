@@ -13,11 +13,11 @@ function getState() {
 }
 
 function connectToWS() {
-    var socket = new SockJS('/hendelse');
+    var socket = new SockJS('/henvendelse');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/hendelse/hendelser', function (hendelse) {
+        stompClient.subscribe('/henvendelse/henvendelser', function (hendelse) {
             console.log(JSON.parse(hendelse.body));
         });
     });

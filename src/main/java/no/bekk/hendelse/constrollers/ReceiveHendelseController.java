@@ -1,7 +1,9 @@
 package no.bekk.hendelse.constrollers;
 
+import no.bekk.hendelse.db.Database;
 import no.bekk.hendelse.domain.Hendelse;
-import no.bekk.hendelse.services.HendelseSocketService;
+import no.bekk.hendelse.domain.Henvendelse;
+import no.bekk.hendelse.services.HenvendelseSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ReceiveHendelseController {
 
     @Autowired
-    private HendelseSocketService hendelseSocketService;
+    private Database database;
+    @Autowired
+    private HenvendelseSocketService henvendelseSocketService;
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody void receive(
@@ -23,7 +27,9 @@ public class ReceiveHendelseController {
             @RequestParam("value") String value) {
 
         Hendelse hendelse = new Hendelse(behandlingsId, type, value);
-        hendelseSocketService.send(hendelse);
+        Henvendelse henvendelse = database.addHendelse(hendelse);
+
+        henvendelseSocketService.send(henvendelse);
     }
 }
 
