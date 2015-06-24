@@ -3,13 +3,11 @@ package no.bekk.hendelse.domain;
 
 public class Hendelse {
 
-    private String id;
+    public final String behandlingsId, type, value;
 
-    public Hendelse(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
+    public Hendelse(String behandlingsId, String type, String value) {
+        this.behandlingsId = behandlingsId;
+        this.type = type;
+        this.value = value;
     }
 }

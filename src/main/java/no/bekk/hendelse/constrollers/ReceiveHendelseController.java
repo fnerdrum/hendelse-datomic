@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -16,7 +17,12 @@ public class ReceiveHendelseController {
     private HendelseSocketService hendelseSocketService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody void receive(Hendelse hendelse) {
+    public @ResponseBody void receive(
+            @RequestParam("behandlingsId") String behandlingsId,
+            @RequestParam("type") String type,
+            @RequestParam("value") String value) {
+
+        Hendelse hendelse = new Hendelse(behandlingsId, type, value);
         hendelseSocketService.send(hendelse);
     }
 }
