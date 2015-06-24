@@ -1,33 +1,14 @@
 import React from 'react';
-import CounterStore from './stores/Store.js';
-import Counter from './components/Counter.js';
-var SockJS = require('sockjs-client');
-var Stomp = require('stompjs');
-
-var stompClient = null;
+import HenvendelseStore from './stores/HenvendelseStore.js';
+import HenvendelseListe from './components/HenvendelseListe.js';
+import Actions from './actions/Actions.js';
+import WebAPI from './WebAPI';
 
 function getState() {
     return {
-        counter: CounterStore.getValue()
+        henvendelser: HenvendelseStore.getAll(),
+        sistEndret: HenvendelseStore.getSisteNEndret(10)
     }
-}
-
-function connectToWS() {
-    var socket = new SockJS('/henvendelse');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/henvendelse/henvendelser', function (hendelse) {
-            console.log(JSON.parse(hendelse.body));
-        });
-    });
-}
-
-function disconnectFromWS() {
-    if (stompClient != null) {
-        stompClient.disconnect();
-    }
-    console.log("Disconnected");
 }
 
 
@@ -36,18 +17,26 @@ class Application extends React.Component {
         super(props);
         this.state = getState();
 
+        this.henvendelseAPI = new WebAPI('/henvendelse');
+        this.henvendelseAPI.subscribe('/henvendelse/henvendelser', (frame) => {
+            let henvendelse = JSON.parse(frame.body);
+            Actions.upsertHenvendelse(henvendelse);
+            console.log('WS: ', henvendelse);
+        });
+
         //En negativ side ved ES6, auto-binding fra React funker ikke. :(
         this._onChange = this._onChange.bind(this);
     }
 
     componentDidMount() {
-        CounterStore.addChangeListener(this._onChange);
-        connectToWS();
+        HenvendelseStore.addChangeListener(this._onChange);
+        Actions.hentAlleHenvendeler();
+        this.henvendelseAPI.connect();
     }
 
     componentWillUnmount() {
-        CounterStore.removeChangeListener(this._onChange);
-        disconnectFromWS();
+        HenvendelseStore.removeChangeListener(this._onChange);
+        this.henvendelseAPI.disconnect();
     }
 
     _onChange() {
@@ -55,7 +44,7 @@ class Application extends React.Component {
     }
 
     render() {
-        return <Counter value={this.state.counter} />
+        return <HenvendelseListe liste={this.state.sistEndret} />
 
     }
 }
