@@ -36,16 +36,20 @@ class HenvendelseVisning extends StoreAwareComponent {
         let harTidligereHendelser = this.state.valgtHendelseIndex > 0;
         let harSenereHendelser = this.state.valgtHendelseIndex < henvendelse.hendelseList.length - 1;
 
+        let tidligerePilClass = 'pil-knapp tidligere-hendelser' + (harTidligereHendelser ? '' : ' skjul');
+        let senerePilClass = 'pil-knapp senere-hendelser' + (harSenereHendelser ? '' : ' skjul');
+
         let valgtHendelse = henvendelse.hendelseList[this.state.valgtHendelseIndex];
 
         return (
-            <div className="henvendelse-visning visnings-boks">
-                <h2 className="underheader">Hendelser</h2>
-                <p>{'Behandlingsid: ' + behandlingsId }</p>
-                <p>{'Sist endret: ' + sistEndret }</p>
+            <section className="henvendelse-visning visnings-boks" tabIndex="0">
+                <button className={tidligerePilClass} aria-label="Tidligere hendelser" />
+                <button className={senerePilClass} aria-label="Sendere hendelser" />
+                <h2 className="underheader">{behandlingsId}</h2>
+                <p className="endret-dato">{sistEndret}</p>
                 <hr/>
                 <HendelseVisning hendelse={valgtHendelse} />
-            </div>
+            </section>
         );
     }
 }

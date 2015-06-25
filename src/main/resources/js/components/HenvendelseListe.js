@@ -17,7 +17,7 @@ class HenvendelseListe extends React.Component {
             let divclass = erValgt ? 'checked' : '';
 
             return (
-                <div key={id} className={divclass} >
+                <div key={id} className={divclass} role="listitem" >
                     <input type="radio"
                         value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
                         onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
@@ -31,12 +31,12 @@ class HenvendelseListe extends React.Component {
             );
         });
         return (
-            <div className="sist-endret visnings-boks">
-                <h2 className="underheader">Henvendelser</h2>
-                <ul className="sist-endret-liste">
+            <section className="sist-endret visnings-boks" tabIndex="0" role="list" aria-labelledby="sist-endret-header">
+                <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
+                <section className="sist-endret-liste">
                 {listeelementer}
-                </ul>
-            </div>
+                </section>
+            </section>
         );
     }
 }

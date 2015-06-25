@@ -1,0 +1,16 @@
+.pil(@storrelse) {
+  width: 0;
+  height: 0;
+  border-top: @storrelse solid transparent;
+  border-bottom: @storrelse solid transparent;
+}
+
+.pil-hoyre(@storrelse, @farge) {
+  .pil(@storrelse);
+  border-left: @storrelse solid @farge;
+}
+
+.pil-venstre(@storrelse, @farge) {
+  .pil(@storrelse);
+  border-right: @storrelse solid @farge;
+}

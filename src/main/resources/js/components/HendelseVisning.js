@@ -8,7 +8,7 @@ class HendelseVisning extends React.Component {
         let hendelse = this.props.hendelse;
 
         return (
-            <div className="hendelse-visning">
+            <div className="hendelse-visning" aria-live="polite" aria-atomic="true" >
                 <p>{'Type: ' + hendelse.type}</p>
                 <p>{'Value: ' + hendelse.value}</p>
             </div>
