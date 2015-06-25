@@ -1,4 +1,5 @@
 .henvendelse-visning {
+  position: relative;
   .underheader {
     border: none;
     padding-bottom: 0;
@@ -9,19 +10,23 @@
     margin-bottom: 0.3rem;
   }
   .pil-knapp {
+    position: absolute;
     margin: 0.75rem;
     background: none;
     border: none;
   }
-  .skjul {
-    display: none;
-  }
   .tidligere-hendelser {
     .pil-venstre(0.75rem, black);
-    float: left;
+    left: 0;
+    &.disabled {
+      .pil-venstre(0.75rem, #ccc);
+    }
   }
   .senere-hendelser {
     .pil-hoyre(0.75rem, black);
-    float: right;
+    right: 0;
+    &.disabled {
+      .pil-hoyre(0.75rem, #ccc);
+    }
   }
 }

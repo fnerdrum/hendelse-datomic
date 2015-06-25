@@ -2,11 +2,17 @@ import React from 'react';
 import HenvendelseStore from './../stores/HenvendelseStore.js';
 import StoreAwareComponent from './StoreAwareComponent.js';
 import HendelseVisning from './HendelseVisning.js';
+import Actions from './../actions/Actions.js';
 import Utils from './../Utils.js';
+
+const PIL_HOYRE = 39;
+const PIL_VENSTRE = 37;
 
 class HenvendelseVisning extends StoreAwareComponent {
     constructor(props) {
         super(props, HenvendelseStore);
+
+        this.keyDownHandler = this.keyDownHandler.bind(this);
     }
 
     getState() {
@@ -16,9 +22,15 @@ class HenvendelseVisning extends StoreAwareComponent {
         };
     }
 
+    keyDownHandler(event) {
+        if (event.keyCode === PIL_HOYRE) {
+            Actions.valgtHendelseIndex(this.state.valgtHendelseIndex + 1);
+        } else if (event.keyCode === PIL_VENSTRE) {
+            Actions.valgtHendelseIndex(this.state.valgtHendelseIndex - 1);
+        }
+    }
+
     render() {
-        console.log('prop', this.props.henvendelse);
-        console.log('valgt', this.state.valgtHendelseIndex);
         if (!this.props.henvendelse) {
             return (
                 <div className="henvendelse-visning visnings-boks">
@@ -29,22 +41,27 @@ class HenvendelseVisning extends StoreAwareComponent {
         }
 
         let henvendelse = this.props.henvendelse;
-        let sistEndret = Utils.tilDato(henvendelse.lastUpdate.epochSecond);
+        let valgtHendelse = henvendelse.hendelseList[this.state.valgtHendelseIndex];
+        let sistEndret = Utils.tilDato(valgtHendelse.time.epochSecond);
         let behandlingsId = henvendelse.behandlingsId;
 
 
         let harTidligereHendelser = this.state.valgtHendelseIndex > 0;
         let harSenereHendelser = this.state.valgtHendelseIndex < henvendelse.hendelseList.length - 1;
 
-        let tidligerePilClass = 'pil-knapp tidligere-hendelser' + (harTidligereHendelser ? '' : ' skjul');
-        let senerePilClass = 'pil-knapp senere-hendelser' + (harSenereHendelser ? '' : ' skjul');
+        let tidligerePilClass = 'pil-knapp tidligere-hendelser' + (harTidligereHendelser ? '' : ' disabled');
+        let senerePilClass = 'pil-knapp senere-hendelser' + (harSenereHendelser ? '' : ' disabled');
+        let tidligerePilAria = 'Tidligere hendelser' + (harTidligereHendelser ? '' : ' disabled');
+        let senerePilAria = 'Sendere hendelser' + (harSenereHendelser ? '' : ' disabled');
 
-        let valgtHendelse = henvendelse.hendelseList[this.state.valgtHendelseIndex];
+
+        let tidligerePilCallback = Actions.valgtHendelseIndex.bind(this, this.state.valgtHendelseIndex - 1);
+        let senerePilCallback = Actions.valgtHendelseIndex.bind(this, this.state.valgtHendelseIndex + 1);
 
         return (
-            <section className="henvendelse-visning visnings-boks" tabIndex="0">
-                <button className={tidligerePilClass} aria-label="Tidligere hendelser" />
-                <button className={senerePilClass} aria-label="Sendere hendelser" />
+            <section className="henvendelse-visning visnings-boks" tabIndex="0" onKeyDown={this.keyDownHandler}>
+                <button className={tidligerePilClass} aria-label={tidligerePilAria} onClick={tidligerePilCallback} />
+                <button className={senerePilClass} aria-label={senerePilAria} onClick={senerePilCallback} />
                 <h2 className="underheader">{behandlingsId}</h2>
                 <p className="endret-dato">{sistEndret}</p>
                 <hr/>

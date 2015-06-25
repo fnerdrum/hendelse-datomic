@@ -31,9 +31,9 @@ class HenvendelseListe extends React.Component {
             );
         });
         return (
-            <section className="sist-endret visnings-boks" tabIndex="0" role="list" aria-labelledby="sist-endret-header">
+            <section className="sist-endret visnings-boks" tabIndex="0" aria-labelledby="sist-endret-header">
                 <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
-                <section className="sist-endret-liste">
+                <section className="sist-endret-liste" role="list">
                 {listeelementer}
                 </section>
             </section>

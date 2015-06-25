@@ -52,20 +52,26 @@ ActionHandlers[Constants.HENTING_OK] = (action) => {
     }, {});
 
     let forsteHenvendelse = _HenvendelseStore.getSisteNEndret(1)[0] || {};
+    let hendelseListe = forsteHenvendelse.hendelseList || [];
 
     _valgtHenvendelse = forsteHenvendelse || null;
-    _valgtHendelseIndex = 0;
+    _valgtHendelseIndex = hendelseListe.length === 0 ? 0 : hendelseListe.length-1;
     _HenvendelseStore.emitChange();
 };
 
 ActionHandlers[Constants.VALGT_HENVENDELSE] = (action) => {
     _valgtHenvendelse = action.data;
-    _valgtHendelseIndex = 0;
+    _valgtHendelseIndex = action.data.hendelseList.length-1;
     _HenvendelseStore.emitChange();
 };
 
 ActionHandlers[Constants.VALGT_HENDELSE_INDEX] = (action) => {
-    _valgtHendelseIndex = action.data;
+    let index = action.data;
+    if (index < 0 || index >= _valgtHenvendelse.hendelseList.length) {
+        return;
+    }
+
+    _valgtHendelseIndex = index;
     _HenvendelseStore.emitChange();
 };
 
