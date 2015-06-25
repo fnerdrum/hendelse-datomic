@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="index.css"/>
+    <style type="text/css">
+        body {
+            max-width: 100%;
+            margin: 1rem;
+        }
+        .example {
+            width: 100px;
+            margin-right: 2rem;
+            margin-bottom: 2rem;
+            float: left;
+        }
+        .example p {
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <script type="application/javascript">
+        var body = document.body;
+
+        for (var i = 1; i <= 20; i++) {
+            body.appendChild(createExample(i));
+        }
+
+
+        function createExample(index) {
+            var colorClass = 'auto-color-'+index;
+            var div = document.createElement('div');
+            div.className = 'example';
+
+            var p1 = document.createElement('p');
+            var p2 = document.createElement('p');
+            var p3 = document.createElement('p');
+
+            p1.className = colorClass;
+            p2.className = colorClass + ' hover';
+            p3.className = colorClass + ' checked';
+
+            p1.innerHTML = 'Farge ' + index;
+            p2.innerHTML = 'Farge ' + index + ' hover';
+            p3.innerHTML = 'Farge ' + index + ' valgt';
+
+            div.appendChild(p1);
+            div.appendChild(p2);
+            div.appendChild(p3);
+
+            return div;
+        }
+
+    </script>
+</body>
+</html>

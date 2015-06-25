@@ -1,25 +1,34 @@
-@nof-colors: 10;
+@nof-colors: 20;
 @basecolor: desaturate(red, 40%);
 
+.auto-color-mixin(@color) {
+  background-color: @color;
+  color: contrast(@color);
+
+  &:hover, &.hover {
+    background-color: saturate(@color, 20%);
+  }
+  &:checked, &.checked {
+    @activecolor: saturate(@color, 100%);
+    background-color: @activecolor;
+    color: contrast(@activecolor);
+  }
+}
+
 .mixin-loop (@index, @total) when (@index > 0) {
+  @next: @index - 1;
+  @offset: (180 / @nof-colors)* @index;
+  @bgcolor2: spin(@basecolor, @offset);
+  @bgcolor: spin(@basecolor, @offset + 180);
+
   .auto-color-@{index} {
-    @bgcolor: spin(@basecolor, (360 / @nof-colors) * @index);
-
-    background-color: @bgcolor;
-    color: contrast(@bgcolor);
-
-    &:hover, &.hover {
-      background-color: saturate(@bgcolor, 20%);
-    }
-
-    &:checked, &.checked {
-      @activecolor: saturate(@bgcolor, 100%);
-      background-color: @activecolor;
-      color: contrast(@activecolor);
-    }
+    .auto-color-mixin(@bgcolor);
+  }
+  .auto-color-@{next} {
+    .auto-color-mixin(@bgcolor2);
   }
 
-  .mixin-loop(@index - 1, @total);
+  .mixin-loop(@index - 2, @total);
 }
 
 .mixin-loop(@nof-colors, @nof-colors);
