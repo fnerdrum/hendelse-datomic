@@ -1,33 +1,39 @@
-@basecolor: red;
-
-.sist-endret {
-  .underheader {
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-  }
-}
 .sist-endret-liste {
   font-size: 1.3rem;
-
-  input {
-    display: none;
-  }
+  line-height: 1.3rem;
 
   div {
-    padding: 0.3rem;
-
     &:not(:last-child) {
       border-bottom: 1px solid #ddd;
     }
+
     &.checked {
-      margin-left: 0.4rem;
+      background: #2929B2;
+      color: white;
     }
-
-    transition: margin 0.2s;
+    transition: background-color 100ms;
   }
-
+  input {
+    position: absolute;
+    left: -9999px;
+  }
   input + label {
     display: block;
+    padding: 1rem 0.3rem;
+
+    .behandlingsid {
+      float: left;
+      padding-left: 1rem;
+    }
+    .antall-hendelser {
+      float: right;
+      font-size: 1rem;
+      margin-right: 1rem;
+    }
+
+  }
+  input:focus + label {
+    outline: 2px solid #2ab0b0;
   }
 }
 

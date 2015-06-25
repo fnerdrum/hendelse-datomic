@@ -10,38 +10,29 @@ class HenvendelseListe extends React.Component {
     }
 
     render() {
-        let lastColor = -1;
         var listeelementer = this.props.liste.map((henvendelse) => {
             let id = henvendelse.behandlingsId;
-            let erValgt = this.props.valgt === id;
-
-            let colorCode = Utils.hash(id) % 10 +1;
-            if (colorCode === lastColor) {
-                colorCode++;
-            }
-            lastColor = colorCode;
-
-            let colorClass = 'auto-color-' + colorCode;
-
-            if (erValgt) {
-                colorClass += ' checked';
-            }
+            let antallHendelser = henvendelse.hendelseList.length;
+            let erValgt = this.props.valgt.behandlingsId === id;
+            let divclass = erValgt ? 'checked' : '';
 
             return (
-                <div key={id} className={colorClass}>
+                <div key={id} className={divclass} >
                     <input type="radio"
                         value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
-                        onChange={Actions.velgHenvendelse.bind(this, id)}
+                        onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
                         checked={erValgt}
                     />
-                    <label htmlFor={'henvendelse-' + id}>{'ID: ' + id}</label>
+                    <label htmlFor={'henvendelse-' + id} className="clearfix">
+                        <p className="behandlingsid">{'ID: ' + id}</p>
+                        <p className="antall-hendelser">{antallHendelser}</p>
+                    </label>
                 </div>
             );
-
         });
         return (
             <div className="sist-endret visnings-boks">
-                <h2 className="underheader">Sist endret</h2>
+                <h2 className="underheader">Henvendelser</h2>
                 <ul className="sist-endret-liste">
                 {listeelementer}
                 </ul>

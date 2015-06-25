@@ -12,6 +12,7 @@
     "express": "^4.13.0",
     "flux": "^2.0.3",
     "keymirror": "^0.1.1",
+    "moment": "^2.10.3",
     "morgan": "^1.6.0",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",

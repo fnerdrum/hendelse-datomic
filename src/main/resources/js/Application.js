@@ -1,6 +1,7 @@
 import React from 'react';
 import HenvendelseStore from './stores/HenvendelseStore.js';
 import HenvendelseListe from './components/HenvendelseListe.js';
+import HenvendelseVisning from './components/HenvendelseVisning.js';
 import Actions from './actions/Actions.js';
 import WebAPI from './WebAPI';
 
@@ -41,7 +42,7 @@ class Application extends React.Component {
     }
 
     _onChange() {
-        this.setState(getState);
+        this.setState(getState());
     }
 
     render() {
@@ -49,7 +50,7 @@ class Application extends React.Component {
             <div className="application">
                 <h1 className="hoved-header">Henvendelse-Datomic</h1>
                 <HenvendelseListe liste={this.state.sistEndret} valgt={this.state.valgtHenvendelse}/>
-                <div className="henvendelse-visning visnings-boks"></div>
+                <HenvendelseVisning henvendelse={this.state.valgtHenvendelse} />
             </div>
         );
 

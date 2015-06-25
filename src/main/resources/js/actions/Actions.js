@@ -26,10 +26,16 @@ let Actions = {
                 }
             })
     },
-    velgHenvendelse: (behandlingsId) => {
+    velgHenvendelse: (henvendelse) => {
         AppDispatcher.dispatch({
             actionType: Constants.VALGT_HENVENDELSE,
-            data: behandlingsId
+            data: henvendelse
+        });
+    },
+    valgtHendelseIndex: (hendelseIndex) => {
+        AppDispatcher.dispatch({
+           actionType: Constants.VALGT_HENDELSE_INDEX,
+            data: hendelseIndex
         });
     }
 };

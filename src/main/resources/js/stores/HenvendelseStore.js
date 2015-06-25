@@ -4,6 +4,7 @@ import Constants from './../Constants.js';
 
 let _henvendelser = {};
 let _valgtHenvendelse = null;
+let _valgtHendelseIndex = null;
 
 class HenvendelseStore extends Store {
     constructor() {
@@ -22,6 +23,10 @@ class HenvendelseStore extends Store {
 
     getValgtHenvendelse() {
         return _valgtHenvendelse;
+    }
+
+    getValgtHendelseIndex() {
+        return _valgtHendelseIndex;
     }
 }
 
@@ -48,12 +53,19 @@ ActionHandlers[Constants.HENTING_OK] = (action) => {
 
     let forsteHenvendelse = _HenvendelseStore.getSisteNEndret(1)[0] || {};
 
-    _valgtHenvendelse = forsteHenvendelse.behandlingsId || null;
+    _valgtHenvendelse = forsteHenvendelse || null;
+    _valgtHendelseIndex = 0;
     _HenvendelseStore.emitChange();
 };
 
 ActionHandlers[Constants.VALGT_HENVENDELSE] = (action) => {
     _valgtHenvendelse = action.data;
+    _valgtHendelseIndex = 0;
+    _HenvendelseStore.emitChange();
+};
+
+ActionHandlers[Constants.VALGT_HENDELSE_INDEX] = (action) => {
+    _valgtHendelseIndex = action.data;
     _HenvendelseStore.emitChange();
 };
 

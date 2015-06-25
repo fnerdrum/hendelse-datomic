@@ -1,3 +1,6 @@
+import moment from 'moment';
+
+
 class Utils {
     static hash(s) {
         let hash = 0, i, chr, len;
@@ -9,6 +12,11 @@ class Utils {
         }
         return hash;
     }
+
+    static tilDato(epochSeconds) {
+        return moment.unix(epochSeconds).format('HH:mm:ss.SSS DD MMM YYYY');
+    }
 }
+window.Utils = Utils;
 
 export default Utils;
