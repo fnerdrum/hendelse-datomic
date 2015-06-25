@@ -77,7 +77,7 @@ ActionHandlers[Constants.VALGT_HENDELSE_INDEX] = (action) => {
 
 
 ActionHandlers[Constants.NESTE_HENVENDELSE] = (actions) => {
-    let henvendelser = _HenvendelseStore.getAll();
+    let henvendelser = _HenvendelseStore.getSisteNEndret(10);
     let index = henvendelser.indexOf(_valgtHenvendelse);
 
     index++;
@@ -92,7 +92,7 @@ ActionHandlers[Constants.NESTE_HENVENDELSE] = (actions) => {
 };
 
 ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (actions) => {
-    let henvendelser = _HenvendelseStore.getAll();
+    let henvendelser = _HenvendelseStore.getSisteNEndret(10);
     let index = henvendelser.indexOf(_valgtHenvendelse);
 
     index--;
