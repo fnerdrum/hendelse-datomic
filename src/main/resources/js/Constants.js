@@ -7,7 +7,8 @@ const Constants = keymirror({
     VALGT_HENVENDELSE: null,
     VALGT_HENDELSE_INDEX: null,
     NESTE_HENVENDELSE: null,
-    FORRIGE_HENVENDELSE: null
+    FORRIGE_HENVENDELSE: null,
+    TOGGLE_HENVENDELSE_LISTE: null
 });
 
 export default Constants;

@@ -1,12 +1,18 @@
 import React from 'react';
 import Actions from './../actions/Actions.js';
 import Utils from './../Utils.js';
+import StoreAwareComponent from './StoreAwareComponent.js';
+import HenvendelseStore from './../stores/HenvendelseStore.js';
 
-window.Utils = Utils;
-
-class HenvendelseListe extends React.Component {
+class HenvendelseListe extends StoreAwareComponent {
     constructor(props) {
-        super(props);
+        super(props, HenvendelseStore);
+    }
+
+    getState() {
+        return {
+            visListe: HenvendelseStore.getVisHenvendelseListe()
+        }
     }
 
     render() {
@@ -30,10 +36,14 @@ class HenvendelseListe extends React.Component {
                 </div>
             );
         });
+
+        let listeClass = 'sist-endret-liste' + (this.state.visListe ? '' : ' kollapset');
+
         return (
             <section className="sist-endret visnings-boks" tabIndex="0" aria-labelledby="sist-endret-header">
+                <button onClick={Actions.toggleHenvendelseListeVisning}>Toggle</button>
                 <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
-                <section className="sist-endret-liste" role="list">
+                <section className={listeClass} role="list">
                 {listeelementer}
                 </section>
             </section>

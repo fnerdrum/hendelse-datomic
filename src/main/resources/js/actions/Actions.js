@@ -47,6 +47,11 @@ let Actions = {
         AppDispatcher.dispatch({
             actionType: Constants.FORRIGE_HENVENDELSE
         });
+    },
+    toggleHenvendelseListeVisning: () => {
+        AppDispatcher.dispatch({
+            actionType: Constants.TOGGLE_HENVENDELSE_LISTE
+        })
     }
 };
 

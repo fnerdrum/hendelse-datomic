@@ -1,6 +1,15 @@
 .sist-endret-liste {
   font-size: 1.3rem;
   line-height: 1.3rem;
+  max-height: 500px;
+  transition: max-height 0.5s;
+
+  &.kollapset {
+    max-height: 0px;
+    overflow: hidden;
+  }
+
+
 
   div {
     &:not(:last-child) {

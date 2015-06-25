@@ -5,6 +5,7 @@ import Constants from './../Constants.js';
 let _henvendelser = {};
 let _valgtHenvendelse = null;
 let _valgtHendelseIndex = null;
+let _visHenvendelseListe = false;
 
 class HenvendelseStore extends Store {
     constructor() {
@@ -27,6 +28,10 @@ class HenvendelseStore extends Store {
 
     getValgtHendelseIndex() {
         return _valgtHendelseIndex;
+    }
+
+    getVisHenvendelseListe() {
+        return _visHenvendelseListe;
     }
 }
 
@@ -76,7 +81,7 @@ ActionHandlers[Constants.VALGT_HENDELSE_INDEX] = (action) => {
 };
 
 
-ActionHandlers[Constants.NESTE_HENVENDELSE] = (actions) => {
+ActionHandlers[Constants.NESTE_HENVENDELSE] = (action) => {
     let henvendelser = _HenvendelseStore.getSisteNEndret(10);
     let index = henvendelser.indexOf(_valgtHenvendelse);
 
@@ -91,7 +96,7 @@ ActionHandlers[Constants.NESTE_HENVENDELSE] = (actions) => {
     });
 };
 
-ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (actions) => {
+ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (action) => {
     let henvendelser = _HenvendelseStore.getSisteNEndret(10);
     let index = henvendelser.indexOf(_valgtHenvendelse);
 
@@ -104,6 +109,11 @@ ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (actions) => {
     ActionHandlers[Constants.VALGT_HENVENDELSE]({
         data: henvendelser[index]
     });
+};
+
+ActionHandlers[Constants.TOGGLE_HENVENDELSE_LISTE] = (action) => {
+    _visHenvendelseListe = !_visHenvendelseListe;
+    _HenvendelseStore.emitChange();
 };
 
 AppDispatcher.register(function (action) {
