@@ -19,8 +19,7 @@ class StoreAwareComponent extends React.Component {
     }
 
     getState() {
-        console.log('super class getState');
-        return {};
+        throw "This is an abstract class. You must extends it and implement the 'getState' method";
     }
 
     _onChange() {

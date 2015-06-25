@@ -34,8 +34,18 @@ let Actions = {
     },
     valgtHendelseIndex: (hendelseIndex) => {
         AppDispatcher.dispatch({
-           actionType: Constants.VALGT_HENDELSE_INDEX,
+            actionType: Constants.VALGT_HENDELSE_INDEX,
             data: hendelseIndex
+        });
+    },
+    nesteHenvendelse: () => {
+        AppDispatcher.dispatch({
+            actionType: Constants.NESTE_HENVENDELSE
+        });
+    },
+    forrigeHenvendelse: () => {
+        AppDispatcher.dispatch({
+            actionType: Constants.FORRIGE_HENVENDELSE
         });
     }
 };

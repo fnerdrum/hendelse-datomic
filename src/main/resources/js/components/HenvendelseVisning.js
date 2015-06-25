@@ -5,8 +5,10 @@ import HendelseVisning from './HendelseVisning.js';
 import Actions from './../actions/Actions.js';
 import Utils from './../Utils.js';
 
-const PIL_HOYRE = 39;
 const PIL_VENSTRE = 37;
+const PIL_OPP = 38;
+const PIL_HOYRE = 39;
+const PIL_NED = 40;
 
 class HenvendelseVisning extends StoreAwareComponent {
     constructor(props) {
@@ -16,7 +18,6 @@ class HenvendelseVisning extends StoreAwareComponent {
     }
 
     getState() {
-        console.log('subclas getState');
         return {
             valgtHendelseIndex: HenvendelseStore.getValgtHendelseIndex()
         };
@@ -27,6 +28,10 @@ class HenvendelseVisning extends StoreAwareComponent {
             Actions.valgtHendelseIndex(this.state.valgtHendelseIndex + 1);
         } else if (event.keyCode === PIL_VENSTRE) {
             Actions.valgtHendelseIndex(this.state.valgtHendelseIndex - 1);
+        } else if (event.keyCode === PIL_NED) {
+            Actions.nesteHenvendelse();
+        } else if (event.keyCode === PIL_OPP) {
+            Actions.forrigeHenvendelse();
         }
     }
 
@@ -59,7 +64,7 @@ class HenvendelseVisning extends StoreAwareComponent {
         let senerePilCallback = Actions.valgtHendelseIndex.bind(this, this.state.valgtHendelseIndex + 1);
 
         return (
-            <section className="henvendelse-visning visnings-boks" tabIndex="0" onKeyDown={this.keyDownHandler}>
+            <section className="henvendelse-visning visnings-boks" onKeyDown={this.keyDownHandler} tabIndex="0">
                 <button className={tidligerePilClass} aria-label={tidligerePilAria} onClick={tidligerePilCallback} />
                 <button className={senerePilClass} aria-label={senerePilAria} onClick={senerePilCallback} />
                 <h2 className="underheader">{behandlingsId}</h2>

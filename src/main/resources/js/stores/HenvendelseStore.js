@@ -76,6 +76,36 @@ ActionHandlers[Constants.VALGT_HENDELSE_INDEX] = (action) => {
 };
 
 
+ActionHandlers[Constants.NESTE_HENVENDELSE] = (actions) => {
+    let henvendelser = _HenvendelseStore.getAll();
+    let index = henvendelser.indexOf(_valgtHenvendelse);
+
+    index++;
+
+    if (index === henvendelser.length) {
+        index = 0;
+    }
+
+    ActionHandlers[Constants.VALGT_HENVENDELSE]({
+        data: henvendelser[index]
+    });
+};
+
+ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (actions) => {
+    let henvendelser = _HenvendelseStore.getAll();
+    let index = henvendelser.indexOf(_valgtHenvendelse);
+
+    index--;
+
+    if (index < 0) {
+        index = henvendelser.length-1;
+    }
+
+    ActionHandlers[Constants.VALGT_HENVENDELSE]({
+        data: henvendelser[index]
+    });
+};
+
 AppDispatcher.register(function (action) {
     var callback = ActionHandlers[action.actionType];
 
