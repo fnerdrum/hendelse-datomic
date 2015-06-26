@@ -24,6 +24,8 @@ class HenvendelseVisning extends StoreAwareComponent {
     }
 
     keyDownHandler(event) {
+        let preventDefault = true;
+
         if (event.keyCode === PIL_HOYRE) {
             Actions.valgtHendelseIndex(this.state.valgtHendelseIndex + 1);
         } else if (event.keyCode === PIL_VENSTRE) {
@@ -32,6 +34,12 @@ class HenvendelseVisning extends StoreAwareComponent {
             Actions.nesteHenvendelse();
         } else if (event.keyCode === PIL_OPP) {
             Actions.forrigeHenvendelse();
+        } else {
+            preventDefault = false;
+        }
+
+        if (preventDefault) {
+            event.preventDefault();
         }
     }
 
