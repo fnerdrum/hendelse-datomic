@@ -8,7 +8,6 @@ html, body, .application {
   height: 100%;
   width: 100%;
   background-color: #f0f0f0;
-  max-width: 50rem;
   margin: 0 auto;
 
   font-size: 14px;
@@ -17,6 +16,7 @@ html, body, .application {
 
 .application {
   padding: 1rem;
+  max-width: 50rem;
 }
 
 .hoved-header, .underheader {
@@ -36,5 +36,26 @@ html, body, .application {
   .underheader {
     padding: 0.5rem;
     border-bottom: 1px solid #ccc;
+  }
+}
+
+@media (min-width: 81rem) {
+  .application {
+    max-width: 70rem;
+  }
+  .sist-endret {
+    float: left;
+    width: 20rem;
+
+    button {
+      display: none;
+    }
+
+    .sist-endret-liste.kollapset {
+      max-height: 500px;
+    }
+  }
+  .henvendelse-visning {
+    margin-left: 21rem;
   }
 }
