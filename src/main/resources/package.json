@@ -23,11 +23,13 @@
   "devDependencies": {
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
+    "format": "^0.2.1",
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
     "gulp-notify": "^2.2.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-watch": "^4.2.4",
+    "sync-prompt": "^0.4.2",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
   }
