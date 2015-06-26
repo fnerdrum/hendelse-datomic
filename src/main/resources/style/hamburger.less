@@ -1,0 +1,111 @@
+@button-width: 1.71rem;
+@button-height: @button-width;
+@bar-thickness: 0.14rem;
+@bar-thickness: 0.14rem;
+@button-padding: 0.28rem;
+@button-bar-spacing: 0.21rem;
+@button-transition-duration: 0.3s;
+@bar-color: black;
+@button-color: white;
+@button-active-color: darken(@button-color, 20%);
+@button-active-color: white;
+
+.c-hamburger {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: @button-width;
+  height: @button-height;
+  font-size: 0;
+  text-indent: -9999px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  cursor: pointer;
+  transition: background @button-transition-duration;
+  border: 1px solid #ccc;
+}
+
+.c-hamburger:focus {
+  outline: none;
+}
+
+.c-hamburger span {
+  display: block;
+  position: absolute;
+  top: (@button-height / 2) - (@bar-thickness / 2);
+  left: @button-padding;
+  right: @button-padding;
+  height: @bar-thickness;
+  background: @bar-color;
+}
+
+.c-hamburger span::before,
+.c-hamburger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: @bar-thickness;
+  background-color: @bar-color;
+  content: "";
+}
+
+.c-hamburger span::before {
+  top: -@bar-thickness - @button-bar-spacing;
+}
+
+.c-hamburger span::after {
+  bottom: -@bar-thickness - @button-bar-spacing;
+}
+
+.c-hamburger--htx {
+  background-color: @button-color;
+}
+
+.c-hamburger--htx span {
+  transition: background 0s @button-transition-duration;
+}
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+  transition-duration: @button-transition-duration, @button-transition-duration;
+  transition-delay: @button-transition-duration, 0s;
+}
+
+.c-hamburger--htx span::before {
+  transition-property: top, transform;
+}
+
+.c-hamburger--htx span::after {
+  transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+
+.c-hamburger--htx.is-active {
+  background-color: @button-active-color;
+}
+
+.c-hamburger--htx.is-active span {
+  background: none;
+}
+
+.c-hamburger--htx.is-active span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.c-hamburger--htx.is-active span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+  transition-delay: 0s, @button-transition-duration;
+}

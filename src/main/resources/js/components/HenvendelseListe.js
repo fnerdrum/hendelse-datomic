@@ -38,10 +38,13 @@ class HenvendelseListe extends StoreAwareComponent {
         });
 
         let listeClass = 'sist-endret-liste' + (this.state.visListe ? '' : ' kollapset');
+        let toggleClass = 'c-hamburger c-hamburger--htx' + (!this.state.visListe ? '' : ' is-active');
 
         return (
             <section className="sist-endret visnings-boks" tabIndex="0" aria-labelledby="sist-endret-header">
-                <button onClick={Actions.toggleHenvendelseListeVisning}>Toggle</button>
+                <button onClick={Actions.toggleHenvendelseListeVisning} className={toggleClass}>
+                    <span>Toggle</span>
+                </button>
                 <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
                 <section className={listeClass} role="list">
                 {listeelementer}
