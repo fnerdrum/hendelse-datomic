@@ -43,6 +43,11 @@ ActionHandlers[Constants.UPSERT_HENVENDELSE] = (action) => {
     let henvendelse = action.data;
 
     _henvendelser[henvendelse.behandlingsId] = henvendelse;
+
+    if (_valgtHenvendelse.behandlingsId === henvendelse.behandlingsId) {
+        _valgtHenvendelse = henvendelse;
+    }
+
     _HenvendelseStore.emitChange();
 };
 
