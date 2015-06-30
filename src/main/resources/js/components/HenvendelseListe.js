@@ -19,7 +19,8 @@ class HenvendelseListe extends StoreAwareComponent {
         var listeelementer = this.props.liste.map((henvendelse) => {
             let id = henvendelse.behandlingsId;
             let antallHendelser = henvendelse.hendelseList.length;
-            let erValgt = this.props.valgt.behandlingsId === id;
+
+            let erValgt = this.props.valgt ? this.props.valgt.behandlingsId === id : false;
             let divclass = erValgt ? 'checked' : '';
 
             return (
