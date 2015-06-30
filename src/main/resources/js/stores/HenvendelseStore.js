@@ -44,7 +44,7 @@ ActionHandlers[Constants.UPSERT_HENVENDELSE] = (action) => {
 
     _henvendelser[henvendelse.behandlingsId] = henvendelse;
 
-    if (_valgtHenvendelse.behandlingsId === henvendelse.behandlingsId) {
+    if (_valgtHenvendelse === null || _valgtHenvendelse.behandlingsId === henvendelse.behandlingsId) {
         _valgtHenvendelse = henvendelse;
     }
 
