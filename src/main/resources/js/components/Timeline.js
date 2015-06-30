@@ -1,40 +1,43 @@
 import React from 'react';
 import Utils from './../Utils.js';
-import GoogleCharts from 'react-google-charts';
-let Chart = GoogleCharts.Chart;
+import vis from 'vis';
 
 class Timeline extends React.Component {
     constructor(props) {
         super(props);
-        var options = {
-            title: 'Hendelseshistorikk',
-            legend: 'none'
-        };
-        this.state = {
-            'data': [],
-            'options': options
-        };
     }
+
+    componentDidMount() {
+        let dataset = new vis.DataSet(this.getHendelseData(this.props));
+        this.timeline = new vis.Timeline(React.findDOMNode(this.refs.mydiv), dataset, {});
+    }
+
+    componentWillReceiveProps(nyProps) {
+        var node = React.findDOMNode(this.refs.mydiv);
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+        let dataset = new vis.DataSet(this.getHendelseData(nyProps));
+        new vis.Timeline(node, dataset, {});
+    }
+
 
     render() {
-        let hendelseData = [['Navn', 'Type', 'Fom', 'Tom']].concat(this.getHendelseData());
+        return <div ref="mydiv"></div>;
+    }
 
-        return (
-            <Chart chartType = "Timeline" data = {hendelseData} options = {this.state.options}  width={"100%"} height={"300px"} graph_id = "timeline_graph"  />
+    getHendelseData(props) {
+        var arr = props.henvendelse.hendelseList.slice(0).reverse();
+        return arr.map(function (hendelse, idx, list) {
+                let toDate = list[idx + 1] !== undefined ? Utils.datoFraInstant(list[idx + 1].time) : Utils.datoFraInstant(hendelse.time);
+
+                return {
+                    id: idx,
+                    content: hendelse.type,
+                    start: Utils.datoFraInstant(hendelse.time)
+                }
+            }
         );
     }
-    getHendelseData() {
-        var arr = this.props.henvendelse.hendelseList.slice(0).reverse();
-        return arr.map(function (hendelse, idx, list) {
-            let toDate = list[idx + 1] !== undefined ? Utils.datoFraInstant(list[idx + 1].time) : Utils.datoFraInstant(hendelse.time);
-            return [
-                'Henvendelse',
-                hendelse.type,
-                Utils.datoFraInstant(hendelse.time),
-                toDate
-            ]
-        });
-    }
 }
-
 export default Timeline;

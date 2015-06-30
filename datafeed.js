@@ -9,23 +9,23 @@ scenarioer.push(
     new ScenarioBuilder()
         .wait(100)
         .opprett()
-        .wait(Math.round(Math.random() * 5000) + 5000)
+        .wait(Math.round(Math.random() * 1000) + 1000)
         .besvar()
         .wait(100)
 );
-
-//scenarioer.push(
-//    new ScenarioBuilder()
-//        .wait(100)
-//        .opprett()
-//        .wait(100)
-//);
 
 scenarioer.push(
     new ScenarioBuilder()
         .wait(100)
         .opprett()
-        .wait(Math.round(Math.random() * 3000) + 2000)
+        .wait(100)
+);
+
+scenarioer.push(
+    new ScenarioBuilder()
+        .wait(100)
+        .opprett()
+        .wait(Math.round(Math.random() * 1000) + 1000)
         .kontorsperr()
         .wait(100)
 );
@@ -36,7 +36,7 @@ function startScenario() {
     var scenario = scenarioer[Math.floor(Math.random() * scenarioer.length)];
     scenario.exec(behandlingsId);
 
-    setTimeout(startScenario, Math.round(Math.random() * 2000));
+    setTimeout(startScenario, Math.round(Math.random() * 500));
 }
 
 function start(num) {
@@ -45,4 +45,4 @@ function start(num) {
         setTimeout(start.bind(this, num - 1), Math.random() * 4000);
     }
 }
-start(5);
+start(10);

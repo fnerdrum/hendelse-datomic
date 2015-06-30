@@ -1,6 +1,8 @@
 import AppDispatcher from './../AppDispatcher.js';
 import Store from './Store.js';
 import Constants from './../Constants.js';
+import moment from 'moment';
+
 
 let _henvendelser = {};
 let _valgtHenvendelse = null;
@@ -32,6 +34,24 @@ class HenvendelseStore extends Store {
 
     getVisHenvendelseListe() {
         return _visHenvendelseListe;
+    }
+
+    getRate() {
+        let antallHenvendelser = Object.keys(_henvendelser).length;
+        let now = moment();
+        let ratewindow = 1000;
+
+
+        let antallSiden = this.getSisteNEndret(antallHenvendelser)
+            .map(function (henvendelse) {
+                return now.diff(moment.unix(henvendelse.lastUpdate.epochSecond).add(henvendelse.lastUpdate.nano / 1000000, 'ms'));
+            }).filter(function (since) {
+                return since < ratewindow
+            }).reduce(function (acc) {
+                return ++acc;
+            }, 0);
+
+        return antallSiden;
     }
 }
 

@@ -20,7 +20,8 @@
     "react-google-charts": "^0.1.4",
     "sockjs-client": "^1.0.0",
     "stompjs": "^2.3.3",
-    "superagent": "^1.2.0"
+    "superagent": "^1.2.0",
+    "vis": "^4.3.0"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
