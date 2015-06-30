@@ -16,8 +16,8 @@ public class Henvendelse {
 
     public Instant getLastUpdate() {
         return hendelseList.stream()
-                .max(comparing(hendelse -> hendelse.time))
-                .get().time;
+                .max(comparing(Hendelse::getTime))
+                .get().getTime();
     }
 
 }

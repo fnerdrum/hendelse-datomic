@@ -27,7 +27,7 @@ public class MemoryDatabase implements Database {
     @Override
     public Henvendelse addHendelse(Hendelse hendelse) {
         Henvendelse henvendelse;
-        String behandlingsId = hendelse.behandlingsId;
+        String behandlingsId = hendelse.getBehandlingsId();
         if (store.containsKey(behandlingsId)) {
             henvendelse = store.get(behandlingsId);
             henvendelse.hendelseList.add(hendelse);

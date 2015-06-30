@@ -1,6 +1,5 @@
 package no.bekk.hendelse.services;
 
-import no.bekk.hendelse.domain.Hendelse;
 import no.bekk.hendelse.domain.Henvendelse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;

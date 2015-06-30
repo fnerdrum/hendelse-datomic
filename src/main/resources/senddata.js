@@ -17,14 +17,15 @@ superagent
 
 
 function startPrompt(behandlingsId, type, value) {
-    behandlingsId = promptOrDefault('BehandlingsId: ', behandlingsId);
-    type = promptOrDefault('Type: ', type);
-    value = promptOrDefault('Value: ', value);
 
-    var posturl = format('http://localhost:8080/hendelse/receive?behandlingsId=%s&type=%s&value=%s', behandlingsId, type, value);
+    var data = {
+        behandlingsId: promptOrDefault('BehandlingsId: ', behandlingsId),
+        type: promptOrDefault('Type: ', type),
+        value: promptOrDefault('Value: ', value)
+    };
 
     superagent
-        .post(posturl)
+        .post('http://localhost:8080/hendelse/receive', data)
         .end(function (err, res) {
             if (err) {
                 console.log('error while posting');

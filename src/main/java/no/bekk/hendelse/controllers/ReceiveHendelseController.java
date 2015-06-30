@@ -5,13 +5,11 @@ import no.bekk.hendelse.domain.Hendelse;
 import no.bekk.hendelse.domain.Henvendelse;
 import no.bekk.hendelse.services.HenvendelseSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/hendelse/receive")
 public class ReceiveHendelseController {
 
@@ -21,12 +19,8 @@ public class ReceiveHendelseController {
     private HenvendelseSocketService henvendelseSocketService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody void receive(
-            @RequestParam("behandlingsId") String behandlingsId,
-            @RequestParam("type") String type,
-            @RequestParam("value") String value) {
+    public void receive(Hendelse hendelse) {
 
-        Hendelse hendelse = new Hendelse(behandlingsId, type, value);
         Henvendelse henvendelse = database.addHendelse(hendelse);
 
         henvendelseSocketService.send(henvendelse);
