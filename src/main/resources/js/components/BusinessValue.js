@@ -9,16 +9,16 @@ class BusinessValue extends React.Component {
         let rate = this.props.value;
         let style = {
             "fontSize": ""+Math.min(Math.round(rate + 10), 30)+"px",
-            "color": rate > 30 ? 'red' : 'black'
+            "color": rate >= 30 ? 'red' : 'black'
         };
 
-        let qualifier = 'No ';
+        let qualifier = ' No ';
         if (rate >= 30) {
-            qualifier = 'Wow. Such '
+            qualifier = ' Wow. Such '
         } else if (rate >= 20) {
-            qualifier = 'Much ';
+            qualifier = ' Much ';
         } else if (rate >= 10) {
-            qualifier = 'Moderate ';
+            qualifier = ' Moderate ';
         }
 
         let muchvalue = qualifier + "Business Value";
