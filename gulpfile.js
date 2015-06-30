@@ -10,9 +10,9 @@ var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 
 
-var JSsourcedir = './js';
-var styleSourcedir = './style';
-var distdir = './public';
+var JSsourcedir = './src/main/resources/js';
+var styleSourcedir = './src/main/resources/style';
+var distdir = './src/main/resources/public';
 
 function buildJS(isDev) {
     console.log('Running buildJS task');
