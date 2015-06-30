@@ -45,4 +45,4 @@ function start(num) {
         setTimeout(start.bind(this, num - 1), Math.random() * 4000);
     }
 }
-start(10);
+start(5);
