@@ -26,10 +26,10 @@ class HenvendelseListe extends StoreAwareComponent {
             return (
                 <div key={id} className={divclass} role="listitem">
                     <input type="radio"
-                           value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
-                           onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
-                           checked={erValgt}
-                        />
+                        value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
+                        onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
+                        checked={erValgt}
+                    />
                     <label htmlFor={'henvendelse-' + id} className="clearfix">
                         <p className="behandlingsid">{id}</p>
 

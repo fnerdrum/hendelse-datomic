@@ -40,7 +40,8 @@ public class Datomic implements Database {
                 String value = (String) entity.get(":henvendelse/value");
                 return new Hendelse().setBehandlingsId(behandlingsId).setType(type).setValue(value).setTime(time);
 
-            }).collect(toList());
+            }).sorted((h1, h2) -> h2.getTime().compareTo(h1.getTime()))
+                .collect(toList());
             henvendelse.hendelseList.addAll(hendelser);
             return henvendelse;
         }).collect(toList());

@@ -19,6 +19,13 @@ class Utils {
             .add(instant.nano / 1000000, 'ms')
             .format('HH:mm:ss.SSS DD MMM YYYY');
     }
+
+    static datoFraInstant(instant) {
+        return moment
+            .unix(instant.epochSecond)
+            .add(instant.nano / 1000000, 'ms')
+            .toDate();
+    }
 }
 window.Utils = Utils;
 

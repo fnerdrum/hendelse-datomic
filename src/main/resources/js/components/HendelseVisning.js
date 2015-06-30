@@ -4,6 +4,7 @@ class HendelseVisning extends React.Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         let hendelse = this.props.hendelse;
 

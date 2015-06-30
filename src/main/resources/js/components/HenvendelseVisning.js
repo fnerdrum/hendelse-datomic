@@ -52,7 +52,6 @@ class HenvendelseVisning extends StoreAwareComponent {
                         <h2 className="underheader">Henvendelse</h2>
                         <p>Ingen henvendelse valgt.</p>
                     </div>
-                    <Timeline />
                 </div>
             );
         }
@@ -83,7 +82,7 @@ class HenvendelseVisning extends StoreAwareComponent {
                 <p className="endret-dato">{sistEndret}</p>
                 <hr/>
                 <HendelseVisning hendelse={valgtHendelse} />
-                <Timeline />
+                <Timeline henvendelse={henvendelse} />
             </section>
         );
     }

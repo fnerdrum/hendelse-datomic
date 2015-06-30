@@ -1,4 +1,5 @@
 import React from 'react';
+import Utils from './../Utils.js';
 import GoogleCharts from 'react-google-charts';
 let Chart = GoogleCharts.Chart;
 
@@ -9,24 +10,30 @@ class Timeline extends React.Component {
             title: 'Hendelseshistorikk',
             legend: 'none'
         };
-
-        var data = [
-                [ 'Henvendelse', 'Opprettet',     new Date(2015, 2, 1),  new Date(2015, 2, 2)],
-                [ 'Henvendelse', 'Opprettet',     new Date(2015, 2, 1),  new Date(2015, 2, 2)],
-                [ 'Henvendelse', 'Endret',     new Date(2015, 2, 2),  new Date(2015, 2, 3)],
-                [ 'Henvendelse', 'Endret',     new Date(2015, 2, 3),  new Date(2015, 2, 4)],
-                [ 'Henvendelse', 'Endret',     new Date(2015, 2, 4),  new Date(2015, 2, 5)],
-                [ 'Henvendelse', 'Slettet',     new Date(2015, 2, 5),  new Date(2015, 2, 6)],
-        ];
         this.state = {
-            'data' : data,
-            'options' : options
+            'data': [],
+            'options': options
         };
     }
+
     render() {
+        let hendelseData = [['Navn', 'Type', 'Fom', 'Tom']].concat(this.getHendelseData());
+
         return (
-            <Chart chartType = "Timeline" data = {this.state.data} options = {this.state.options}  width={"100%"} height={"300px"} graph_id = "timeline_graph"  />
+            <Chart chartType = "Timeline" data = {hendelseData} options = {this.state.options}  width={"100%"} height={"300px"} graph_id = "timeline_graph"  />
         );
+    }
+    getHendelseData() {
+        var arr = this.props.henvendelse.hendelseList.slice(0).reverse();
+        return arr.map(function (hendelse, idx, list) {
+            let toDate = list[idx + 1] !== undefined ? Utils.datoFraInstant(list[idx + 1].time) : Utils.datoFraInstant(hendelse.time);
+            return [
+                'Henvendelse',
+                hendelse.type,
+                Utils.datoFraInstant(hendelse.time),
+                toDate
+            ]
+        });
     }
 }
 
