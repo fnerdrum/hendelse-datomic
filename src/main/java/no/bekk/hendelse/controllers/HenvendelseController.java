@@ -1,4 +1,4 @@
-package no.bekk.hendelse.constrollers;
+package no.bekk.hendelse.controllers;
 
 import no.bekk.hendelse.db.Database;
 import no.bekk.hendelse.domain.Henvendelse;
