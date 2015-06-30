@@ -6,6 +6,7 @@ function Scenario() {
 }
 Scenario.prototype.opprett = function () {
     this.pipeline.use(function (input, next) {
+        console.log('executing "opprettet" for ', input);
         post({
             behandlingsId: input,
             type: 'Opprettet',
@@ -23,6 +24,7 @@ Scenario.prototype.opprett = function () {
 
 Scenario.prototype.besvar = function () {
     this.pipeline.use(function (input, next) {
+        console.log('executing "besvart" for ', input);
         post({
             behandlingsId: input,
             type: 'Besvart',
@@ -40,6 +42,7 @@ Scenario.prototype.besvar = function () {
 
 Scenario.prototype.kontorsperr = function () {
     this.pipeline.use(function (input, next) {
+        console.log('executing "Kontorsperret" for ', input);
         post({
             behandlingsId: input,
             type: 'Kontorsperret',
@@ -57,6 +60,7 @@ Scenario.prototype.kontorsperr = function () {
 
 Scenario.prototype.opprettOppgave = function () {
     this.pipeline.use(function (input, next) {
+        console.log('executing "Oppgave Oppretttet" for ', input);
         post({
             behandlingsId: input,
             type: 'Oppgave Oppretttet',
@@ -74,6 +78,7 @@ Scenario.prototype.opprettOppgave = function () {
 
 Scenario.prototype.knyttTilSak = function () {
     this.pipeline.use(function (input, next) {
+        console.log('executing "Knyttet Til Sak" for ', input);
         post({
             behandlingsId: input,
             type: 'Knyttet Til Sak',

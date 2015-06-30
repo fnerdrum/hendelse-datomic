@@ -14,9 +14,20 @@ class Timeline extends React.Component {
         this.lagTimeline(this.props);
     }
 
-    componentWillReceiveProps(nyProps) {
-        this.lagTimeline(nyProps);
+    componentDidUpdate() {
+        this.lagTimeline(this.props);
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.henvendelse.behandlingsId !== nextProps.henvendelse.behandlingsId) {
+            return true;
+        } else if (this.props.hendelse.time.epochSecond !== nextProps.hendelse.time.epochSecond) {
+             return true;
+        } else {
+            return this.props.hendelse.time.nano !== nextProps.hendelse.time.nano;
+        }
+    }
+
 
     lagTimeline(props) {
         let node = React.findDOMNode(this.refs.mydiv);

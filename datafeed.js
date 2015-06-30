@@ -26,9 +26,11 @@ var sc3 = new ScenarioBuilder()
 
 var sc4 = new ScenarioBuilder()
     .opprett()
-    .wait(Math.random() * 1000 + 1000)
+    .wait(Math.random() * 1000 + 10000)
     .besvar()
-    .wait(Math.random() * 1000 + 1000)
+    .wait(Math.random() * 1000 + 10000)
+    .knyttTilSak()
+    .wait(Math.random() * 1000 + 10000)
     .kontorsperr();
 
 scenarioer = scenarioer.concat([sc4]);
@@ -38,10 +40,11 @@ function startScenario() {
     var scenario = scenarioer[Math.floor(Math.random() * scenarioer.length)];
     scenario.exec(behandlingsId);
 
-    setTimeout(startScenario, Math.round(Math.random() * 500));
+    setTimeout(startScenario, Math.round(Math.random() * 10000));
 }
 
 function start(num) {
+    console.log('starting actor ', num);
     if (num > 0) {
         startScenario();
         setTimeout(start.bind(this, num - 1), Math.random() * 4000);

@@ -4,18 +4,27 @@ import Constants from './../Constants.js';
 import moment from 'moment';
 
 
-let _henvendelser = {};
+let _henvendelser = [];
 let _valgtHenvendelse = null;
 let _valgtHendelseIndex = null;
 let _visHenvendelseListe = false;
+let _rateCounter = 0;
+let _rate = 0;
+let _inMemoryCount = 20;
 
 class HenvendelseStore extends Store {
     constructor() {
         super('henvendelsechange');
+
+        setInterval(function(){
+            _rate = _rateCounter;
+            _rateCounter = 0;
+            this.emitChange();
+        }.bind(this), 1000);
     }
 
     getAll() {
-        return Object.keys(_henvendelser).map(id => _henvendelser[id]);
+        return _henvendelser.slice(0);
     }
 
     getSisteNEndret(n) {
@@ -37,21 +46,7 @@ class HenvendelseStore extends Store {
     }
 
     getRate() {
-        let antallHenvendelser = Object.keys(_henvendelser).length;
-        let now = moment();
-        let ratewindow = 1000;
-
-
-        let antallSiden = this.getSisteNEndret(antallHenvendelser)
-            .map(function (henvendelse) {
-                return now.diff(moment.unix(henvendelse.lastUpdate.epochSecond).add(henvendelse.lastUpdate.nano / 1000000, 'ms'));
-            }).filter(function (since) {
-                return since < ratewindow
-            }).reduce(function (acc) {
-                return ++acc;
-            }, 0);
-
-        return antallSiden;
+        return _rate;
     }
 }
 
@@ -60,14 +55,23 @@ let _HenvendelseStore = new HenvendelseStore();
 
 const ActionHandlers = {};
 ActionHandlers[Constants.UPSERT_HENVENDELSE] = (action) => {
+    _rateCounter++;
     let henvendelse = action.data;
 
     henvendelse.hendelseList.sort((a, b) => {
         return a.time.epochSecond - b.time.epochSecond;
     });
 
+    let eksisterenceIndex = _henvendelser.map((h) => {
+        return h.behandlingsId;
+    }).indexOf(henvendelse.behandlingsId);
 
-    _henvendelser[henvendelse.behandlingsId] = henvendelse;
+    if (eksisterenceIndex >= 0) {
+        _henvendelser[eksisterenceIndex] = henvendelse;
+    } else {
+        _henvendelser.unshift(henvendelse);
+        _henvendelser = _henvendelser.slice(0, _inMemoryCount);
+    }
 
     if (_valgtHenvendelse === null || _valgtHenvendelse.behandlingsId === henvendelse.behandlingsId) {
         _valgtHenvendelse = henvendelse;
@@ -82,12 +86,14 @@ ActionHandlers[Constants.HENTING_FEILET] = (action) => {
 
 ActionHandlers[Constants.HENTING_OK] = (action) => {
     _henvendelser = action.data.reduce((acc, henvendelse) => {
-        henvendelse.hendelseList.sort(function(a, b){
+        henvendelse.hendelseList.sort(function (a, b) {
             return a.time.epochSecond - b.time.epochSecond;
         });
-        acc[henvendelse.behandlingsId] = henvendelse;
+        acc.push(henvendelse);
         return acc;
-    }, {});
+    }, []);
+
+    _henvendelser = _HenvendelseStore.getSisteNEndret(_inMemoryCount);
 
     let forsteHenvendelse = _HenvendelseStore.getSisteNEndret(1)[0] || null;
     let hendelseListe = forsteHenvendelse ? forsteHenvendelse.hendelseList || [] : [];
