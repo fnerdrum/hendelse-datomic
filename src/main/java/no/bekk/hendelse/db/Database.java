@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface Database {
     List<Henvendelse> getAll();
-    Henvendelse getHenvendelse(String behandlingsId);
     Henvendelse addHendelse(Hendelse hendelse);
 }

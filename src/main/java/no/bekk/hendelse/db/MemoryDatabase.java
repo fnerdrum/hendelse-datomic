@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
 public class MemoryDatabase implements Database {
 
     private final Map<String, Henvendelse> store = new HashMap<>();
@@ -17,11 +16,6 @@ public class MemoryDatabase implements Database {
     @Override
     public List<Henvendelse> getAll() {
         return new ArrayList<>(store.values());
-    }
-
-    @Override
-    public Henvendelse getHenvendelse(String behandlingsId) {
-        return store.get(behandlingsId);
     }
 
     @Override
