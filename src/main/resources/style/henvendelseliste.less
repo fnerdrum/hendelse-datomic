@@ -8,16 +8,13 @@
   &.kollapset {
     max-height: 0px;
   }
-
-
-
   div {
     &:not(:last-child) {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #d1d1d1;
     }
 
     &.checked {
-      background: #2929B2;
+      background: #0067c5;
       color: white;
     }
     transition: background-color 100ms;
@@ -29,6 +26,7 @@
   input + label {
     display: block;
     padding: 1rem 0.3rem;
+    cursor: pointer;
 
     .behandlingsid {
       float: left;

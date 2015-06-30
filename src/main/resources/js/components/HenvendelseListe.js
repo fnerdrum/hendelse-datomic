@@ -24,14 +24,15 @@ class HenvendelseListe extends StoreAwareComponent {
             let divclass = erValgt ? 'checked' : '';
 
             return (
-                <div key={id} className={divclass} role="listitem" >
+                <div key={id} className={divclass} role="listitem">
                     <input type="radio"
-                        value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
-                        onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
-                        checked={erValgt}
-                    />
+                           value={id} id={'henvendelse-' + id} name="valgt-henvendelse"
+                           onChange={Actions.velgHenvendelse.bind(this, henvendelse)}
+                           checked={erValgt}
+                        />
                     <label htmlFor={'henvendelse-' + id} className="clearfix">
-                        <p className="behandlingsid">{'ID: ' + id}</p>
+                        <p className="behandlingsid">{id}</p>
+
                         <p className="antall-hendelser">{antallHendelser}</p>
                     </label>
                 </div>
@@ -48,7 +49,7 @@ class HenvendelseListe extends StoreAwareComponent {
                 </button>
                 <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
                 <section className={listeClass} role="list">
-                {listeelementer}
+                    {listeelementer}
                 </section>
             </section>
         );
