@@ -24,7 +24,6 @@ class Application extends React.Component {
         this.henvendelseAPI.subscribe('/henvendelse/henvendelser', (frame) => {
             let henvendelse = JSON.parse(frame.body);
             Actions.upsertHenvendelse(henvendelse);
-            console.log('WS: ', henvendelse);
         });
 
         //En negativ side ved ES6, auto-binding fra React funker ikke. :(

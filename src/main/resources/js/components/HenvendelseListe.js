@@ -15,6 +15,18 @@ class HenvendelseListe extends StoreAwareComponent {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        let liste = React.findDOMNode(this.refs.list);
+
+        if (nextProps.liste.length > 0 && liste.children.length === 0) {
+            return true;
+        } else if(nextState.visListe !== this.state.visListe) {
+            return true;
+        } else {
+            return liste.offsetHeight > 0;
+        }
+    }
+
     render() {
         var listeelementer = this.props.liste.map((henvendelse) => {
             let id = henvendelse.behandlingsId;
@@ -48,7 +60,7 @@ class HenvendelseListe extends StoreAwareComponent {
                     <span>Toggle</span>
                 </button>
                 <h2 id="sist-endret-header" className="underheader">Henvendelser</h2>
-                <section className={listeClass} role="list">
+                <section className={listeClass} role="list" ref="list">
                     {listeelementer}
                 </section>
             </section>

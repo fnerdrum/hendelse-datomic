@@ -40,7 +40,7 @@ function startScenario() {
     var scenario = scenarioer[Math.floor(Math.random() * scenarioer.length)];
     scenario.exec(behandlingsId);
 
-    setTimeout(startScenario, Math.round(Math.random() * 10000));
+    setTimeout(startScenario, Math.round(Math.random() * 1000 +1000));
 }
 
 function start(num) {
