@@ -4,6 +4,7 @@ import StoreAwareComponent from './StoreAwareComponent.js';
 import HendelseVisning from './HendelseVisning.js';
 import Actions from './../actions/Actions.js';
 import Utils from './../Utils.js';
+import Timeline from './Timeline.js';
 
 const PIL_VENSTRE = 37;
 const PIL_OPP = 38;
@@ -46,9 +47,12 @@ class HenvendelseVisning extends StoreAwareComponent {
     render() {
         if (!this.props.henvendelse) {
             return (
-                <div className="henvendelse-visning visnings-boks">
-                    <h2 className="underheader">Henvendelse</h2>
-                    <p>Ingen henvendelse valgt.</p>
+                <div>
+                    <div className="henvendelse-visning visnings-boks">
+                        <h2 className="underheader">Henvendelse</h2>
+                        <p>Ingen henvendelse valgt.</p>
+                    </div>
+                    <Timeline />
                 </div>
             );
         }
@@ -79,6 +83,7 @@ class HenvendelseVisning extends StoreAwareComponent {
                 <p className="endret-dato">{sistEndret}</p>
                 <hr/>
                 <HendelseVisning hendelse={valgtHendelse} />
+                <Timeline />
             </section>
         );
     }
