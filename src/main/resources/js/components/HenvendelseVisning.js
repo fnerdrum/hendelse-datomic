@@ -80,9 +80,8 @@ class HenvendelseVisning extends StoreAwareComponent {
                 <button className={senerePilClass} aria-label={senerePilAria} onClick={senerePilCallback} />
                 <h2 className="underheader">{behandlingsId}</h2>
                 <p className="endret-dato">{sistEndret}</p>
-                <hr/>
+                <Timeline henvendelse={henvendelse} hendelse={valgtHendelse} />
                 <HendelseVisning hendelse={valgtHendelse} />
-                <Timeline henvendelse={henvendelse} />
             </section>
         );
     }

@@ -62,6 +62,11 @@ const ActionHandlers = {};
 ActionHandlers[Constants.UPSERT_HENVENDELSE] = (action) => {
     let henvendelse = action.data;
 
+    henvendelse.hendelseList.sort((a, b) => {
+        return a.time.epochSecond - b.time.epochSecond;
+    });
+
+
     _henvendelser[henvendelse.behandlingsId] = henvendelse;
 
     if (_valgtHenvendelse === null || _valgtHenvendelse.behandlingsId === henvendelse.behandlingsId) {
@@ -77,6 +82,9 @@ ActionHandlers[Constants.HENTING_FEILET] = (action) => {
 
 ActionHandlers[Constants.HENTING_OK] = (action) => {
     _henvendelser = action.data.reduce((acc, henvendelse) => {
+        henvendelse.hendelseList.sort(function(a, b){
+            return a.time.epochSecond - b.time.epochSecond;
+        });
         acc[henvendelse.behandlingsId] = henvendelse;
         return acc;
     }, {});

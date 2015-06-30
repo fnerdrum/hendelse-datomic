@@ -5,31 +5,33 @@ function lagBehandlingsId() {
     return Math.round(Math.random() * 1000000);
 }
 
-scenarioer.push(
-    new ScenarioBuilder()
-        .wait(100)
-        .opprett()
-        .wait(Math.round(Math.random() * 1000) + 1000)
-        .besvar()
-        .wait(100)
-);
+var sc1 = new ScenarioBuilder()
+    .wait(100)
+    .opprett()
+    .wait(Math.round(Math.random() * 1000) + 1000)
+    .besvar()
+    .wait(100);
 
-scenarioer.push(
-    new ScenarioBuilder()
-        .wait(100)
-        .opprett()
-        .wait(100)
-);
+var sc2 = new ScenarioBuilder()
+    .wait(100)
+    .opprett()
+    .wait(100);
 
-scenarioer.push(
-    new ScenarioBuilder()
-        .wait(100)
-        .opprett()
-        .wait(Math.round(Math.random() * 1000) + 1000)
-        .kontorsperr()
-        .wait(100)
-);
+var sc3 = new ScenarioBuilder()
+    .wait(100)
+    .opprett()
+    .wait(Math.round(Math.random() * 1000) + 1000)
+    .kontorsperr()
+    .wait(100);
 
+var sc4 = new ScenarioBuilder()
+    .opprett()
+    .wait(Math.random() * 1000 + 1000)
+    .besvar()
+    .wait(Math.random() * 1000 + 1000)
+    .kontorsperr();
+
+scenarioer = scenarioer.concat([sc4]);
 
 function startScenario() {
     var behandlingsId = lagBehandlingsId();
