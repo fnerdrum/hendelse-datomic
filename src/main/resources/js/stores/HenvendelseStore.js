@@ -56,8 +56,8 @@ ActionHandlers[Constants.HENTING_OK] = (action) => {
         return acc;
     }, {});
 
-    let forsteHenvendelse = _HenvendelseStore.getSisteNEndret(1)[0] || {};
-    let hendelseListe = forsteHenvendelse.hendelseList || [];
+    let forsteHenvendelse = _HenvendelseStore.getSisteNEndret(1)[0] || null;
+    let hendelseListe = forsteHenvendelse ? forsteHenvendelse.hendelseList || [] : [];
 
     _valgtHenvendelse = forsteHenvendelse || null;
     _valgtHendelseIndex = hendelseListe.length === 0 ? 0 : hendelseListe.length-1;
