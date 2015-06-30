@@ -16,6 +16,8 @@ public class App {
     public static final String DATOMIC_URI = "datomic:mem://" + UUID.randomUUID();
 
     public static void main(String[] args) {
+        System.setProperty("jms.url", "tcp://127.0.0.1:8001");
+
         Peer.createDatabase(DATOMIC_URI);
         Connection conn = Peer.connect(DATOMIC_URI);
         transactAllFromResource(conn, "db/schema.edn");
