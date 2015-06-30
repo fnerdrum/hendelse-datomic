@@ -8,7 +8,7 @@ class BusinessValue extends React.Component {
     render() {
         let rate = this.props.value;
         let style = {
-            "fontSize": ""+Math.max(Math.round(rate + 10), 30)+"px",
+            "fontSize": ""+Math.min(Math.round(rate + 10), 30)+"px",
             "color": rate > 30 ? 'red' : 'black'
         };
 
