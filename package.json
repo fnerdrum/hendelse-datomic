@@ -31,6 +31,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-watch": "^4.2.4",
+    "pipes-and-filters": "0.0.4",
     "sync-prompt": "^0.4.2",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
