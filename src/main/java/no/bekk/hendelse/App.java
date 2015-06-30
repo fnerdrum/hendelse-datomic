@@ -4,12 +4,14 @@ import datomic.Connection;
 import datomic.Peer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.annotation.EnableJms;
 
 import java.util.UUID;
 
 import static no.bekk.hendelse.db.Utils.transactAllFromResource;
 
 @SpringBootApplication
+@EnableJms
 public class App {
     public static final String DATOMIC_URI = "datomic:mem://" + UUID.randomUUID();
 

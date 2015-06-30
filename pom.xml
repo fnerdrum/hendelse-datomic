@@ -27,6 +27,14 @@
             <artifactId>datomic-free</artifactId>
             <version>0.9.5153</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
