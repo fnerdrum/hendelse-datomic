@@ -7,10 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/henvendelse")
 public class HenvendelseController {
 
@@ -18,7 +19,7 @@ public class HenvendelseController {
     private Database database;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Henvendelse> getAll() {
+    public List<Henvendelse> getAll() {
         return database.getAll();
     }
 
