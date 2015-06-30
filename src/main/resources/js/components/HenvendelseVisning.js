@@ -55,7 +55,7 @@ class HenvendelseVisning extends StoreAwareComponent {
 
         let henvendelse = this.props.henvendelse;
         let valgtHendelse = henvendelse.hendelseList[this.state.valgtHendelseIndex];
-        let sistEndret = Utils.tilDato(valgtHendelse.time.epochSecond);
+        let sistEndret = Utils.tilDato(valgtHendelse.time);
         let behandlingsId = henvendelse.behandlingsId;
 
 

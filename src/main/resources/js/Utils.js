@@ -13,8 +13,11 @@ class Utils {
         return hash;
     }
 
-    static tilDato(epochSeconds) {
-        return moment.unix(epochSeconds).format('HH:mm:ss.SSS DD MMM YYYY');
+    static tilDato(instant) {
+        return moment
+            .unix(instant.epochSecond)
+            .add(instant.nano / 1000000, 'ms')
+            .format('HH:mm:ss.SSS DD MMM YYYY');
     }
 }
 window.Utils = Utils;

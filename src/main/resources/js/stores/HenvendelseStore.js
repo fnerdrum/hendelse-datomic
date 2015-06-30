@@ -65,13 +65,13 @@ ActionHandlers[Constants.HENTING_OK] = (action) => {
     let hendelseListe = forsteHenvendelse ? forsteHenvendelse.hendelseList || [] : [];
 
     _valgtHenvendelse = forsteHenvendelse || null;
-    _valgtHendelseIndex = hendelseListe.length === 0 ? 0 : hendelseListe.length-1;
+    _valgtHendelseIndex = hendelseListe.length === 0 ? 0 : hendelseListe.length - 1;
     _HenvendelseStore.emitChange();
 };
 
 ActionHandlers[Constants.VALGT_HENVENDELSE] = (action) => {
     _valgtHenvendelse = action.data;
-    _valgtHendelseIndex = action.data.hendelseList.length-1;
+    _valgtHendelseIndex = action.data.hendelseList.length - 1;
     _HenvendelseStore.emitChange();
 };
 
@@ -108,7 +108,7 @@ ActionHandlers[Constants.FORRIGE_HENVENDELSE] = (action) => {
     index--;
 
     if (index < 0) {
-        index = henvendelser.length-1;
+        index = henvendelser.length - 1;
     }
 
     ActionHandlers[Constants.VALGT_HENVENDELSE]({
