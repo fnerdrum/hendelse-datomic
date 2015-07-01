@@ -23,6 +23,8 @@ class Timeline extends React.Component {
             return true;
         } else if (this.props.hendelse.time.epochSecond !== nextProps.hendelse.time.epochSecond) {
              return true;
+        } else if(this.props.henvendelse.hendelseList.length !== nextProps.henvendelse.hendelseList.length) {
+            return true;
         } else {
             return this.props.hendelse.time.nano !== nextProps.hendelse.time.nano;
         }
