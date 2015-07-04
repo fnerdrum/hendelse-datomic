@@ -6,45 +6,43 @@ import vis from 'vis';
 class Timeline extends React.Component {
     constructor(props) {
         super(props);
-
-        this.lagTimeline = this.lagTimeline.bind(this);
     }
 
     componentDidMount() {
-        this.lagTimeline(this.props);
+        this.node = React.findDOMNode(this.refs.mydiv);
+        this.dataset = window.dataset = new vis.DataSet(this.getHendelseData(this.props));
+        this.timeline = window.timeline = new vis.Timeline(this.node, this.dataset, {clickToUse: true});
+        this.selectedID = this.props.henvendelse.hendelseList.indexOf(this.props.hendelse);
+
+        this.timeline.setSelection(this.selectedID);
+        this.timeline.on('select', function (event) {
+            let idx = event.items[0];
+            Actions.valgtHendelseIndex(idx);
+        });
     }
 
     componentDidUpdate() {
-        this.lagTimeline(this.props);
+        this.dataset.clear();
+        this.dataset.add(this.getHendelseData(this.props));
+
+        this.selectedID = this.props.henvendelse.hendelseList.indexOf(this.props.hendelse);
+        this.timeline.setSelection(this.selectedID);
+
+        this.timeline.fit({
+            animation: false
+        });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.henvendelse.behandlingsId !== nextProps.henvendelse.behandlingsId) {
             return true;
         } else if (this.props.hendelse.time.epochSecond !== nextProps.hendelse.time.epochSecond) {
-             return true;
-        } else if(this.props.henvendelse.hendelseList.length !== nextProps.henvendelse.hendelseList.length) {
+            return true;
+        } else if (this.props.henvendelse.hendelseList.length !== nextProps.henvendelse.hendelseList.length) {
             return true;
         } else {
             return this.props.hendelse.time.nano !== nextProps.hendelse.time.nano;
         }
-    }
-
-
-    lagTimeline(props) {
-        let node = React.findDOMNode(this.refs.mydiv);
-        while (node.firstChild) {
-            node.removeChild(node.firstChild);
-        }
-        let dataset = new vis.DataSet(this.getHendelseData(props));
-        let timeline = new vis.Timeline(node, dataset, {clickToUse: true});
-        let idx = props.henvendelse.hendelseList.indexOf(props.hendelse);
-
-        timeline.setSelection(idx);
-        timeline.on('select', function(event){
-            let idx = event.items[0];
-            Actions.valgtHendelseIndex(idx);
-        });
     }
 
     render() {
