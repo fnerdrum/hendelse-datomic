@@ -26,21 +26,21 @@ var sc3 = new ScenarioBuilder()
 
 var sc4 = new ScenarioBuilder()
     .opprett()
-    .wait(Math.random() * 1000 + 10000)
+    .wait(Math.random() * 10000 + 1000)
     .besvar()
-    .wait(Math.random() * 1000 + 10000)
+    .wait(Math.random() * 10000 + 1000)
     .knyttTilSak()
-    .wait(Math.random() * 1000 + 10000)
+    .wait(Math.random() * 10000 + 1000)
     .kontorsperr();
 
-scenarioer = scenarioer.concat([sc4]);
+scenarioer = scenarioer.concat([sc1, sc2, sc3, sc4]);
 
 function startScenario() {
     var behandlingsId = lagBehandlingsId();
     var scenario = scenarioer[Math.floor(Math.random() * scenarioer.length)];
     scenario.exec(behandlingsId);
 
-    setTimeout(startScenario, Math.round(Math.random() * 1000 +1000));
+    setTimeout(startScenario, Math.round(Math.random() * 10000 +1000));
 }
 
 function start(num) {
@@ -50,4 +50,4 @@ function start(num) {
         setTimeout(start.bind(this, num - 1), Math.random() * 4000);
     }
 }
-start(20);
+start(5);

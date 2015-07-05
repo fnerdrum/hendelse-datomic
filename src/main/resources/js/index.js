@@ -1,6 +1,8 @@
 import React from 'react';
-import Application from './Application.js';
+import Router from 'react-router';
+import routes from './Routing.js';
 
-let ApplicationElement = React.createElement(Application);
+Router.run(routes, Router.HistoryLocation, (Root) => {
+    React.render(<Root />, document.body);
+});
 
-React.render(ApplicationElement, document.body);

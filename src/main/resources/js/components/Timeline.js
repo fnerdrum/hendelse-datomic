@@ -6,6 +6,7 @@ import vis from 'vis';
 class Timeline extends React.Component {
     constructor(props) {
         super(props);
+        this.redraw = false;
     }
 
     componentDidMount() {
@@ -21,9 +22,18 @@ class Timeline extends React.Component {
         });
     }
 
-    componentDidUpdate() {
+    componentWillUnmount() {
+        this.timeline.destroy();
         this.dataset.clear();
-        this.dataset.add(this.getHendelseData(this.props));
+        this.node = null;
+    }
+
+    componentDidUpdate() {
+        if (this.redraw) {
+            console.log('redrawing');
+            this.dataset.clear();
+            this.dataset.add(this.getHendelseData(this.props));
+        }
 
         this.selectedID = this.props.henvendelse.hendelseList.indexOf(this.props.hendelse);
         this.timeline.setSelection(this.selectedID);
@@ -35,12 +45,16 @@ class Timeline extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.henvendelse.behandlingsId !== nextProps.henvendelse.behandlingsId) {
+            this.redraw = true;
             return true;
         } else if (this.props.hendelse.time.epochSecond !== nextProps.hendelse.time.epochSecond) {
+            this.redraw = false;
             return true;
         } else if (this.props.henvendelse.hendelseList.length !== nextProps.henvendelse.hendelseList.length) {
+            this.redraw = true;
             return true;
         } else {
+            this.redraw = false;
             return this.props.hendelse.time.nano !== nextProps.hendelse.time.nano;
         }
     }
